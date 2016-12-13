@@ -21,11 +21,10 @@
 int main () {
   int childPid;
   int status;
-  //  unsigned int i, j, k; //
   unsigned int i;
   int errno;
-  int argCounter;
-  unsigned int pathCounter;
+  int arg_Counter;
+  unsigned int path_Counter;
   int sysCallReturn;
   const char whitespace[8] = " \t\v\n\f\n\r";
   const char colon[2] = ":";
@@ -54,7 +53,7 @@ int main () {
 
 
     if (strlen(inputString) > (INPUT_LENGTH - 2)) {
-      printf("Cannot process more than 1000 characters of input\n");
+      printf("Can't process more than 1000 characters\n");
       while (getchar() != '\n');
       continue;
     }
@@ -65,18 +64,18 @@ int main () {
 
     if (childPid == 0) {
 
-      argCounter = 0;
-      pathCounter = 0;
+      arg_Counter = 0;
+      path_Counter = 0;
 
 
       inputChar = strtok(inputString, whitespace);
-      argv[argCounter] = inputChar;
+      argv[arg_Counter] = inputChar;
 
 
       while(inputChar != NULL ) {
-        argCounter++;
+        arg_Counter++;
         inputChar = strtok(NULL, whitespace);
-        argv[argCounter] = inputChar;
+        argv[arg_Counter] = inputChar;
       }
 
 
@@ -87,17 +86,17 @@ int main () {
 
 
       pathChar = strtok(pathString, colon);
-      pathArgs[pathCounter] = pathChar;
+      pathArgs[path_Counter] = pathChar;
 
 
       while(pathChar != NULL ) {
-        pathCounter++;
+        path_Counter++;
         pathChar = strtok(NULL, colon);
-        pathArgs[pathCounter] = pathChar;
+        pathArgs[path_Counter] = pathChar;
       }
 
 
-      for (i = 0; i < pathCounter; i++) {
+      for (i = 0; i < path_Counter; i++) {
         memset(tempPath, 0, sizeof(tempPath));
         strcpy (tempPath, pathArgs[i]);
         strcat (tempPath, "/");
