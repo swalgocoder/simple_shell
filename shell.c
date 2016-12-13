@@ -35,7 +35,7 @@ int main () {
   char *inputChar;
   char *pathChar;
   char *pathArgs[strlen(path)];
-  char *finalPathArgs[strlen(path)];
+  char *final_PathArgs[strlen(path)];
   struct stat sb;
   char *prompt = "#cisfun$";
 
@@ -101,11 +101,11 @@ int main () {
         strcpy (tempPath, pathArgs[i]);
         strcat (tempPath, "/");
         strcat (tempPath, argv[0]);
-        finalPathArgs[i] = tempPath;
-        sysCallReturn = stat(finalPathArgs[i], &sb);
+        final_PathArgs[i] = tempPath;
+        sysCallReturn = stat(final_PathArgs[i], &sb);
 
         if (sysCallReturn == 0) {
-          sysCallReturn = execv(finalPathArgs[i], argv);
+          sysCallReturn = execv(final_PathArgs[i], argv);
           break;
         }
       }
