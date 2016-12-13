@@ -33,8 +33,8 @@ int main () {
   char inputString[INPUT_LENGTH];
   char tempPath[strlen(path)];
   char *argv[ARGUMENT_LENGTH];
-  char *inputPieces;
-  char *pathPieces;
+  char *inputChar;
+  char *pathChar;
   char *pathArgs[strlen(path)];
   char *finalPathArgs[strlen(path)];
   struct stat sb;
@@ -69,14 +69,14 @@ int main () {
       pathCounter = 0;
 
 
-      inputPieces = strtok(inputString, whitespace);
-      argv[argCounter] = inputPieces;
+      inputChar = strtok(inputString, whitespace);
+      argv[argCounter] = inputChar;
 
 
-      while(inputPieces != NULL ) {
+      while(inputChar != NULL ) {
         argCounter++;
-        inputPieces = strtok(NULL, whitespace);
-        argv[argCounter] = inputPieces;
+        inputChar = strtok(NULL, whitespace);
+        argv[argCounter] = inputChar;
       }
 
 
@@ -86,14 +86,14 @@ int main () {
       }
 
 
-      pathPieces = strtok(pathString, colon);
-      pathArgs[pathCounter] = pathPieces;
+      pathChar = strtok(pathString, colon);
+      pathArgs[pathCounter] = pathChar;
 
 
-      while(pathPieces != NULL ) {
+      while(pathChar != NULL ) {
         pathCounter++;
-        pathPieces = strtok(NULL, colon);
-        pathArgs[pathCounter] = pathPieces;
+        pathChar = strtok(NULL, colon);
+        pathArgs[pathCounter] = pathChar;
       }
 
 
