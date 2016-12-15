@@ -37,7 +37,7 @@ char *_fgets(char *str, int n, FILE *stream)
 		  }
 		  else
 		  {
-		  return(line);
+		  puts(line);
 		  }
 		}
 
@@ -58,7 +58,7 @@ int main()
 		return (-1);
 	}
 
-	puts(_fgets(str, 60, fp));
+	_fgets(str, 60, fp);
 
 	fclose(fp);
 
