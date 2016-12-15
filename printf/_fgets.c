@@ -1,4 +1,8 @@
+#define _GNU_SOURCE
 #include "my_shell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * _fgets - reads a line from the @stream and stores it into @str
@@ -10,8 +14,11 @@
  */
 char *_fgets(char *str, int n, FILE *stream)
 {
-	int i;
+
 	char *ptr;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t i;
 
 	if (str == NULL)
 		return (NULL);
@@ -21,18 +28,18 @@ char *_fgets(char *str, int n, FILE *stream)
 	{
 		while (n > 0)
 		{
-			i = getc(stream);
-			if (i != EOF)
+		  i = getline(&line, &len, stream);
+			if (i != -1)
 			{
 				*ptr++ = i;
-				if (i == '\n')
-					break;
 			}
+			if (i == -1)
+			break;
 			n--;
 		}
 		*ptr = '\0';
 	}
-	return (i == EOF && ptr == str) ? NULL : str;
+	return (str);
 }
 
 int main()
