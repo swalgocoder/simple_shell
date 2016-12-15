@@ -32,17 +32,14 @@ char *_fgets(char *str, int n, FILE *stream)
 		{
 		  i = getline(&line, &len, stream);
 		  if (i == -1)
-		  {
 		  break;
-		  }
-		  else
-		  {
+		  
+		  if (i != -1)
 		  puts(line);
-		  }
 		}
 
 	}
-	free(line);
+	
 }
 
 int main()
@@ -57,9 +54,9 @@ int main()
 		printf("Error opening file");
 		return (-1);
 	}
-
-	_fgets(str, 60, fp);
-
+	if(_fgets(str, 60, fp)!=NULL )
+	{
+	}
 	fclose(fp);
 
 	return(0);
