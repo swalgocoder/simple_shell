@@ -1,4 +1,16 @@
 #include "my_shell.h"
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <errno.h>
+
+#define INPUT_LENGTH 1002
+#define ARGUMENT_LENGTH 1001
 
 int main () {
 	int childPid, status, errno, arg_Counter, sysCallReturn;
@@ -9,12 +21,12 @@ int main () {
 	char inputString[INPUT_LENGTH], tempPath[_strlen(path)];
 	char *argv[ARGUMENT_LENGTH], *inputChar, *pathChar;
 	char *pathArgs[_strlen(path)], *final_PathArgs[_strlen(path)];
-	char *prompt = "#cisfun$ ";
+	char *str = "#cisfun$ ";
 	struct stat sb;
 
 	while (1) {
 		/* can not use fprintf */
-		fprintf(stdout, "%s", prompt);
+		write(1, str, _strlen(str));
 		_memset(inputString, 0, sizeof(inputString));
 		_memset(argv, 0, sizeof(argv));
 		_memset(pathArgs, 0, sizeof(pathArgs));
@@ -43,7 +55,7 @@ int main () {
 				argv[arg_Counter] = inputChar;
 			}
 			char pathString[_strlen(path)];
-			for (i = 0; i < strlen(path); i++)
+			for (i = 0; i < _strlen(path); i++)
 				pathString[i] = path[i];
 			pathChar = strtok(pathString, colon);
 			pathArgs[path_Counter] = pathChar;
@@ -69,20 +81,21 @@ int main () {
 			}
 			if (sysCallReturn == -1)
 				/* can not use printf */
-				printf("%s\n", strerror(errno));
+			write(1, strerror(errno), strlen(strerror(errno)));
 			return 0;
 		}
 		else if (childPid == -1)
 		{
 			/* can not use printf */
-			printf("%s\n", strerror(errno));
+			write(1, strerror(errno), strlen(strerror(errno)));
+
 			break;
 		}
 		else
 		{
 			if (wait(&status) == -1)
 				/* can not use printf */
-				printf("%s\n", strerror(errno));
+			write(1, strerror(errno), strlen(strerror(errno)));
 		}
 	}
 }

@@ -15,7 +15,7 @@
 /* string functions */
 int _putchar(char c);
 int _printstring(char *string);
-int _strlen(const char *s);
+unsigned int _strlen(const char *s);
 char * _strcpy(char *strDest, const char *strSrc);
 char *_strncpy(char *dest, char *src, int n);
 char *_strcat(char *dest, char *src);
