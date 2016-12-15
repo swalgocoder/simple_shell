@@ -19,7 +19,7 @@ char *_fgets(char *str, int n, FILE *stream)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t i;
-
+	
 	if (str == NULL)
 		return (NULL);
 
@@ -36,10 +36,11 @@ char *_fgets(char *str, int n, FILE *stream)
 			if (i == -1)
 			break;
 			n--;
+			return(line);
 		}
 		*ptr = '\0';
 	}
-	return (str);
+	
 }
 
 int main()
