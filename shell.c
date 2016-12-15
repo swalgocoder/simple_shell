@@ -23,7 +23,8 @@ int main () {
 	char *pathArgs[_strlen(path)], *final_PathArgs[_strlen(path)];
 	char *str = "#cisfun$ ";
 	struct stat sb;
-
+	char *str2 = "Can't process more than 1000 characters";
+	
 	while (1) {
 		/* can not use fprintf */
 		write(1, str, _strlen(str));
@@ -36,7 +37,7 @@ int main () {
 		if (_strlen(inputString) > (INPUT_LENGTH - 2))
 		{
 			/* can not use printf */
-			printf("Can't process more than 1000 characters\n");
+			write(1, str2, _strlen(str2));
 			/* can not use getchar */
 			while (getchar() != '\n');
 			continue;
