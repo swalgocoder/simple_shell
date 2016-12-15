@@ -25,4 +25,5 @@ char *_memset(char *s, char b, unsigned int n);
 /* environment functions */
 char *_getenv(const char *name);
 
-#endif MY_SHELL
+#endif
+
