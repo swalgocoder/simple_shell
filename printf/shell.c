@@ -114,20 +114,20 @@ int main () {
 
 
       if (sysCallReturn == -1) {
-        printf("%s\n", strerror(errno));
+        write(1, strerror(errno), strlen(strerror(errno)));
       }
 
       return 0;
     }
 
     else if (childPid == -1) {
-      printf("%s\n", strerror(errno));
+      write(1, strerror(errno), strlen(strerror(errno)));
       break;
     }
 
     else {
       if (wait(&status) == -1) {
-        printf("%s\n", strerror(errno));
+	write(1, strerror(errno), strlen(strerror(errno)));
       }
     }
   }
