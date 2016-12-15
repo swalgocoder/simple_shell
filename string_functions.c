@@ -1,5 +1,7 @@
 #include "my_shell.h"
-
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
 /**
  * _putchar - writes character to stdout
  * @c: character to print
@@ -36,7 +38,7 @@ int _printstring(char *string)
  *
  * Return: length of s
  */
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int l;
 
@@ -47,32 +49,19 @@ int _strlen(char *s)
 }
 
 /**
- * _strncpy - copy @n bytes of @src to @dest
- * @dest: pointer to destination string
- * @src: pointer to source string
- * @n: bytes to copy
- *
- * Return: pointer to @dest
+ * _strcpy - copy bytes of @strSrc to @strDest
+ * @strDest: pointer to destination string
+ * @strSrc: pointer to source string
+ * Return: pointer to @strdest
  */
-char *_strncpy(char *dest, char *src, int n)
+char * _strcpy(char *strDest, const char *strSrc)
 {
-	int i;
+    assert(strDest!=NULL && strSrc!=NULL);
+    char *temp = strDest;
+    while((*strDest++=*strSrc++) != '\0');
+    return temp;
 
-	i = 0;
-	while (i != n)
-	{
-		dest[i] = src[i];
-		if (src[i] == '\0')
-		{
-			while (i != n)
-				dest[i++] = '\0';
-			break;
-		}
-		i++;
-	}
-	return (dest);
 }
-
 /**
  * _strcat - concatenate two strings
  * @dest: base string

@@ -9,7 +9,7 @@ int main () {
 	char inputString[INPUT_LENGTH], tempPath[_strlen(path)];
 	char *argv[ARGUMENT_LENGTH], *inputChar, *pathChar;
 	char *pathArgs[_strlen(path)], *final_PathArgs[_strlen(path)];
-	char *prompt = "[MY_SHELL]$ ";
+	char *prompt = "#cisfun$ ";
 	struct stat sb;
 
 	while (1) {
