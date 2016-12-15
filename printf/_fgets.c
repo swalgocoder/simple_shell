@@ -3,7 +3,23 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <unistd.h>
 
+/**  _fgetc(fp) -- get char from stream */
+
+
+int _fgetc(FILE *fp)
+{
+	char c;
+
+
+	if (read (fp->fd, &c, 1) == 0)
+		return (EOF);
+	return (c);
+}
 /**
  * _fgets - reads a line from the @stream and stores it into @str
  * @str: pointer to an array of chars where the string read is stored
@@ -58,7 +74,7 @@ int main()
 		return (-1);
 	}
 
-	puts(_fgets(str, 60, fp));
+	_fgetc(fp);
 
 	fclose(fp);
 
