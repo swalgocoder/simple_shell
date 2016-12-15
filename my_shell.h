@@ -21,8 +21,8 @@ char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 int _strcmp(char *s1, const char *s2);
 /* memory functions */
-char *_memset(char *s, char b, unsigned int n);
+char *_memset(void *s, int b, unsigned int n);
 /* environment functions */
 char *_getenv(const char *name);
 
-#endif MY_SHELL
+#endif
