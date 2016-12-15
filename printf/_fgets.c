@@ -16,9 +16,11 @@ char *_fgets(char *str, int n, FILE *stream)
 {
 
 	char *ptr;
-	char *line = NULL;
-	size_t len = 0;
+	char *line;
+	size_t len = 200;
 	ssize_t i;
+
+	line = (char *) malloc(len + 1);
 	
 	if (str == NULL)
 		return (NULL);
@@ -29,16 +31,13 @@ char *_fgets(char *str, int n, FILE *stream)
 		while (n > 0)
 		{
 		  i = getline(&line, &len, stream);
-			if (i != -1)
-			{
-				*ptr++ = i;
-			}
-			if (i == -1)
-			break;
-			n--;
-			return(line);
+		  if (i == -1)
+		  break;
+		  
+		  if (i != -1)
+		  puts(line);
 		}
-		*ptr = '\0';
+
 	}
 	
 }
@@ -57,8 +56,6 @@ int main()
 	}
 	if(_fgets(str, 60, fp)!=NULL )
 	{
-		/* writing content to stdout */
-		puts(str);
 	}
 	fclose(fp);
 
