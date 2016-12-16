@@ -33,9 +33,9 @@ int main () {
   char *pathArgs[strlen(path)];
   char *finalPathArgs[strlen(path)];
   struct stat sb;
-  const char delim[2] = ":";
+  //const char delim[2] = ":";
   const char token[5] = "exit";
-  char token2;
+  //char token2;
 
   
   while (1) {
@@ -54,12 +54,14 @@ int main () {
     //token = inputString;
     //printf("entered token is :%s", token);
 
-    printf("token element:%c", token[1]);
-    printf("token element:%c", inputString[1]);
+    //printf("token element:%c", token[1]);
+    //printf("token element:%c", inputString[1]);
 
     if (inputString[1] == token[1]) 
-    exit(0);
-
+      {
+      printf("exit entered...exiting");
+      exit(0);
+      }
     
     // If input exeeds max, print error message and restart prompt
     if (strlen(inputString) > (INPUT_LENGTH - 2)) {
