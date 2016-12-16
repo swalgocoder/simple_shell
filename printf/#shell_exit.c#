@@ -57,7 +57,7 @@ int main () {
     //printf("token element:%c", token[1]);
     //printf("token element:%c", inputString[1]);
 
-    if (inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3] && inputString[0] == token[0]) 
+    if (inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3] && inputString 
       {
       printf("exit entered...exiting");
       exit(0);
