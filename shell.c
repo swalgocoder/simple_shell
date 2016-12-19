@@ -16,7 +16,7 @@
  * main - linux commond line interpreter
  * Return: 0 if on error
  */
-int main (void)
+int main(void)
 {
 	int childPid, status, errno, arg_Counter, sysCallReturn;
 	unsigned int i, path_Counter;
@@ -31,29 +31,28 @@ int main (void)
 	char *str2 = "Can't process more than 1000 characters";
 	const char token[5] = "exit";
 	char *str3 = "exit entered...exiting";
-	  
-	while (1) {
-		/* can not use fprintf */
+
+	while (1)
+	{
 		write(1, str, _strlen(str));
 		_memset(inputString, 0, sizeof(inputString));
 		_memset(argv, 0, sizeof(argv));
 		_memset(pathArgs, 0, sizeof(pathArgs));
 		/* can not use fgets */
 		if (fgets(inputString, INPUT_LENGTH, stdin) == NULL)
-			return 0;
-		if ( inputString[0] == token[0] && inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3])
+		return (0);
+		if (inputString[0] == token[0] && inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3])
       {
       write(1, str3, _strlen(str));
       exit(0);
 }
-		
 		if (_strlen(inputString) > (INPUT_LENGTH - 2))
 		{
-			/* can not use printf */
 			write(1, str2, _strlen(str2));
 			/* can not use getchar */
-			while (getchar() != '\n');
-			continue;
+
+			/*while (getchar() != '\n');*/
+			/*continue;*/
 		}
 		childPid = fork();
 		if (childPid == 0)
@@ -62,7 +61,7 @@ int main (void)
 			path_Counter = 0;
 			inputChar = strtok(inputString, whitespace);
 			argv[arg_Counter] = inputChar;
-			while(inputChar != NULL )
+			while (inputChar != NULL)
 			{
 				arg_Counter++;
 				inputChar = strtok(NULL, whitespace);
@@ -73,7 +72,7 @@ int main (void)
 				pathString[i] = path[i];
 			pathChar = strtok(pathString, colon);
 			pathArgs[path_Counter] = pathChar;
-			while(pathChar != NULL )
+			while (pathChar != NULL)
 			{
 				path_Counter++;
 				pathChar = strtok(NULL, colon);
@@ -96,7 +95,7 @@ int main (void)
 			if (sysCallReturn == -1)
 				/* can not use printf */
 			write(1, strerror(errno), strlen(strerror(errno)));
-			return 0;
+			return (0);
 		}
 		else if (childPid == -1)
 		{
