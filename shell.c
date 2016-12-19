@@ -1,16 +1,4 @@
 #include "my_shell.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <errno.h>
-
-#define INPUT_LENGTH 1002
-#define ARGUMENT_LENGTH 1001
 
 /**
  * main - linux commond line interpreter
@@ -22,7 +10,7 @@ int main(void)
 	unsigned int i, path_Counter;
 	const char whitespace[8] = " \t\v\n\f\n\r";
 	const char colon[2] = ":";
-	const char* path = _getenv("PATH");
+	const char *path = _getenv("PATH");
 	char inputString[INPUT_LENGTH], tempPath[_strlen(path)];
 	char *argv[ARGUMENT_LENGTH], *inputChar, *pathChar;
 	char *pathArgs[_strlen(path)], *final_PathArgs[_strlen(path)];
@@ -41,16 +29,15 @@ int main(void)
 		/* can not use fgets */
 		if (fgets(inputString, INPUT_LENGTH, stdin) == NULL)
 		return (0);
-		if (inputString[0] == token[0] && inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3])
-{
-write(1, str3, _strlen(str));
-exit(0);
-}
+		if (inputString[0] == token[0] && inputString[1] == token[1] &&
+		    inputString[2] == token[2] && inputString[3] == token[3])
+		{
+			write(1, str3, _strlen(str));
+			exit(0);
+		}
 		if (_strlen(inputString) > (INPUT_LENGTH - 2))
 		{
 			write(1, str2, _strlen(str2));
-			/* can not use getchar */
-
 			/*while (getchar() != '\n');*/
 			/*continue;*/
 		}
@@ -94,13 +81,11 @@ exit(0);
 				}
 			}
 			if (sysCallReturn == -1)
-				/* can not use printf */
 			write(1, strerror(errno), strlen(strerror(errno)));
 			return (0);
 		}
 		else if (childPid == -1)
 		{
-			/* can not use printf */
 			write(1, strerror(errno), strlen(strerror(errno)));
 
 			break;
@@ -108,7 +93,6 @@ exit(0);
 		else
 		{
 			if (wait(&status) == -1)
-				/* can not use printf */
 			write(1, strerror(errno), strlen(strerror(errno)));
 		}
 	}
