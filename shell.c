@@ -12,7 +12,12 @@
 #define INPUT_LENGTH 1002
 #define ARGUMENT_LENGTH 1001
 
-int main () {
+/**
+ * main - linux commond line interpreter
+ * Return: 0 if on error
+ */
+int main (void)
+{
 	int childPid, status, errno, arg_Counter, sysCallReturn;
 	unsigned int i, path_Counter;
 	const char whitespace[8] = " \t\v\n\f\n\r";
@@ -24,7 +29,9 @@ int main () {
 	char *str = "#cisfun$ ";
 	struct stat sb;
 	char *str2 = "Can't process more than 1000 characters";
-	
+	const char token[5] = "exit";
+	char *str3 = "exit entered...exiting";
+	  
 	while (1) {
 		/* can not use fprintf */
 		write(1, str, _strlen(str));
@@ -34,6 +41,12 @@ int main () {
 		/* can not use fgets */
 		if (fgets(inputString, INPUT_LENGTH, stdin) == NULL)
 			return 0;
+		if ( inputString[0] == token[0] && inputString[1] == token[1] && inputString[2] == token[2] && inputString[3] == token[3])
+      {
+      write(1, str3, _strlen(str));
+      exit(0);
+}
+		
 		if (_strlen(inputString) > (INPUT_LENGTH - 2))
 		{
 			/* can not use printf */
