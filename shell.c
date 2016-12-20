@@ -1,9 +1,38 @@
 #include "my_shell.h"
+/**
+ * check_input - inputstring processing
+ * @inputString inputstring
+ * Return: 0 on error
+ */
+
+int check_input(char inputString[INPUT_LENGTH])
+{
+	char *str2 = "Can't process more than 1000 characters";
+	const char token[5] = "exit";
+	char *str3 = "exit entered...exiting";
+	
+	if (fgets(inputString, INPUT_LENGTH, stdin) == NULL)
+		return (0);
+		if (inputString[0] == token[0] && inputString[1] == token[1] &&
+		    inputString[2] == token[2] && inputString[3] == token[3])
+		{
+			write(1, str3, _strlen(str3));
+			exit(0);
+		}
+		if (_strlen(inputString) > (INPUT_LENGTH - 2))
+		{
+			write(1, str2, _strlen(str2));
+			exit(0);
+		}
+		return (1);
+}
 
 /**
  * main - linux commond line interpreter
  * Return: 0 if on error
  */
+
+
 int main(void)
 {
 	int childPid, status, errno, arg_Counter, sysCallReturn;
@@ -16,9 +45,7 @@ int main(void)
 	char *pathArgs[_strlen(path)], *final_PathArgs[_strlen(path)];
 	char *str = "#cisfun$ ";
 	struct stat sb;
-	char *str2 = "Can't process more than 1000 characters";
-	const char token[5] = "exit";
-	char *str3 = "exit entered...exiting";
+
 
 	while (1)
 	{
@@ -26,21 +53,9 @@ int main(void)
 		_memset(inputString, 0, sizeof(inputString));
 		_memset(argv, 0, sizeof(argv));
 		_memset(pathArgs, 0, sizeof(pathArgs));
-		/* can not use fgets */
-		if (fgets(inputString, INPUT_LENGTH, stdin) == NULL)
-		return (0);
-		if (inputString[0] == token[0] && inputString[1] == token[1] &&
-		    inputString[2] == token[2] && inputString[3] == token[3])
-		{
-			write(1, str3, _strlen(str));
-			exit(0);
-		}
-		if (_strlen(inputString) > (INPUT_LENGTH - 2))
-		{
-			write(1, str2, _strlen(str2));
-			/*while (getchar() != '\n');*/
-			/*continue;*/
-		}
+		
+		check_input(inputString);
+		
 		childPid = fork();
 		if (childPid == 0)
 		{
