@@ -5,10 +5,6 @@
 
 #include <string.h>
 
-/* return length of initial segment of p that consists entirely of
- * characters from s */
-
-
 int _strspn(const char *p, const char *s)
 {
 	int i, j;
