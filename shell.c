@@ -25,9 +25,9 @@ int main(void)
 		_memset(inputString, 0, sizeof(inputString));
 		_memset(argv, 0, sizeof(argv));
 		_memset(pathArgs, 0, sizeof(pathArgs));
-		
+
 		check_input(inputString);
-		
+
 		childPid = fork();
 		if (childPid == 0)
 		{
