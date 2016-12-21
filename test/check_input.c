@@ -1,11 +1,11 @@
 #include "my_shell.h"
 /**
- * check_input - inputstring processing
- * @inputString1: pointer to inputstring array
+ * read_input - inputstring processing
+ * @inputString1 pointer to inputstring
  * Return: 0 on error
  */
 
-int check_input(char *inputString1)
+int read_input(char *inputString1)
 {
 	char *str2 = "Can't process more than 1000 characters";
 	const char token[5] = "exit";

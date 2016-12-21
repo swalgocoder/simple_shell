@@ -26,6 +26,6 @@ char *_memset(void *s, int b, unsigned int n);
 /* environment functions */
 char *_getenv(const char *name);
 char *my_strtok(char *p, const char *tok);
-int check_input(char *inputString1);
+int check_input(char inputString[INPUT_LENGTH]);
 
 #endif
