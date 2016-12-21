@@ -54,12 +54,13 @@ unsigned int _strlen(const char *s)
  * @strSrc: pointer to source string
  * Return: pointer to @strdest
  */
-char * _strcpy(char *strDest, const char *strSrc)
+char *_strcpy(char *strDest, const char *strSrc)
 {
-    assert(strDest!=NULL && strSrc!=NULL);
+    assert(strDest != NULL && strSrc != NULL);
     char *temp = strDest;
-    while((*strDest++=*strSrc++) != '\0');
-    return temp;
+    while ((*strDest++ = *strSrc++) != '\0');
+
+    return (temp);
 
 }
 /**
