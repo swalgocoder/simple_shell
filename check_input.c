@@ -2,7 +2,7 @@
 /**
  * check_input - inputstring processing
  * @inputString1: pointer to inputstring array
- * Return: 0 on error
+ * Return: 0,98, on error
  */
 
 int check_input(char *inputString1)
@@ -17,7 +17,7 @@ int check_input(char *inputString1)
 		    inputString1[2] == token[2] && inputString1[3] == token[3])
 		{
 			write(1, str3, _strlen(str3));
-			exit(0);
+			exit(98);
 		}
 		if (_strlen(inputString1) > (INPUT_LENGTH - 2))
 		{
