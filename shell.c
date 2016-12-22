@@ -17,6 +17,7 @@ int main(void)
 	char *pathArgs, *final_PathArgs, *tempPath;
 	char *str = "#cisfun$ ";
 	struct stat sb;
+<<<<<<< HEAD
 	char *inputString1;
 
 	inputString = malloc(sizeof(*inputString) * 1002);
@@ -26,6 +27,10 @@ int main(void)
 	pathArgs = malloc(sizeof(*pathArgs) * _strlen(path));
 	if (pathArgs == NULL)
 		return (1);
+=======
+	char *inputString1 = inputString;
+	char pathString[_strlen(path)];
+>>>>>>> cafe3ccb3cace91f219f000f09df02ad923f28e6
 
 	while (1)
 	{
@@ -49,9 +54,14 @@ int main(void)
 				inputChar = my_strtok(NULL, whitespace);
 				argv[arg_Counter] = inputChar;
 			}
+<<<<<<< HEAD
 			pathString = malloc(sizeof(*pathString) * _strlen(path));
 			if (pathString == NULL)
 				return (1);
+=======
+
+
+>>>>>>> cafe3ccb3cace91f219f000f09df02ad923f28e6
 			for (i = 0; i < _strlen(path); i++)
 				pathString[i] = path[i];
 			pathChar = my_strtok(pathString, colon);

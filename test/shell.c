@@ -1,32 +1,4 @@
 #include "my_shell.h"
-///**
-// * read_input - check command line input
-// * @inputString: input char array
-// * Return: 1, 0 on error
-// */
-
-//int read_input(char *inputString1)
-//{
-//	char *str2 = "Can't process more than 1000 characters";
-//	const char token[5] = "exit";
-//	char *str3 = "exit entered...exiting";
-//
-//	if (fgets(inputString1, INPUT_LENGTH, stdin) == NULL)
-//		return (0);
-//		if (inputString1[0] == token[0] && inputString1[1] == token[1] &//&
-//		    inputString1[2] == token[2] && inputString1[3] == token[3])
-//		{
-//			write(1, str3, _strlen(str3));
-//			exit(0);
-//		}
-//		if (_strlen(inputString1) > (INPUT_LENGTH - 2))
-//		{
-//			write(1, str2, _strlen(str2));
-//			exit(0);
-//		}
-//		return (1);
-//}
-
 /**
  * main - linux commond line interpreter
  * Return: 0 if on error
@@ -35,7 +7,7 @@
 
 int main(void)
 {
-  int childPid, status, errno, arg_Counter, sysCallReturn;
+	int childPid, status, errno, arg_Counter, sysCallReturn;
 	unsigned int i, path_Counter;
 	const char whitespace[8] = " \t\v\n\f\n\r";
 	const char colon[2] = ":";
@@ -46,6 +18,7 @@ int main(void)
 	char *str = "#cisfun$ ";
 	struct stat sb;
 	char *inputString1 = inputString;
+	char pathString[_strlen(path)];
 
 	while (1)
 	{
@@ -54,11 +27,14 @@ int main(void)
 		_memset(argv, 0, sizeof(argv));
 		_memset(pathArgs, 0, sizeof(pathArgs));
 
-		read_input(inputString1);
+		check_input(inputString1);
 
 		childPid = fork();
 		if (childPid == 0)
-		{
+		  //resets counters from previous child process
+		  //my_strtok to parse the arguments based on whitespace(delimiters)
+		  //"NULL" to parse the reminder of the string
+		  {
 			arg_Counter = 0;
 			path_Counter = 0;
 			inputChar = my_strtok(inputString, whitespace);
@@ -69,18 +45,38 @@ int main(void)
 				inputChar = my_strtok(NULL, whitespace);
 				argv[arg_Counter] = inputChar;
 			}
-			char pathString[_strlen(path)];
+
+			//print to verify
+			printf("argv[0] is %s\n", argv[0]);
+			printf("argv[1] is %s\n", argv[1]);
+			printf("argv[2] is %s\n", argv[2]);
+			printf("argv[3] is %s\n", argv[3]);
+			
+			//convert PATH variable to a string to be parsed
 
 			for (i = 0; i < _strlen(path); i++)
 				pathString[i] = path[i];
+			//parses PATH variale based on colon delimiter
+			//NULL to parse the reminder of PATH environment variable
 			pathChar = my_strtok(pathString, colon);
+			//print to verify
+			//printf("env variable PATH is %s\n", PATH);
+			printf("pathChar is %s\n", pathChar);
+			//verify end
 			pathArgs[path_Counter] = pathChar;
+			//print to verify
+			printf("pathArgs[0] is %s\n", pathArgs[0]);
+			printf("pathArgs[1] is %s\n", pathArgs[1]);
+			//verify end
+			
 			while (pathChar != NULL)
 			{
 				path_Counter++;
 				pathChar = my_strtok(NULL, colon);
 				pathArgs[path_Counter] = pathChar;
 			}
+
+			//append file to end of each path and calls stat() to validate file
 			for (i = 0; i < path_Counter; i++)
 			{
 				_memset(tempPath, 0, sizeof(tempPath));
@@ -88,6 +84,18 @@ int main(void)
 				_strcat(tempPath, "/");
 				_strcat(tempPath, argv[0]);
 				final_PathArgs[i] = tempPath;
+
+				//print to verify
+				printf("tempPath is %s\n", tempPath);
+				printf("final_PathArgs[0]: %s \n", final_PathArgs[0]);
+				printf("final_PathArgs[1]: %s \n", final_PathArgs[1]);
+				printf("final_PathArgs[2]: %s \n", final_PathArgs[2]);
+				printf("final_PathArgs[3]: %s \n", final_PathArgs[3]);
+				printf("final_PathArgs[4]: %s \n", final_PathArgs[4]);
+				
+				//verify end
+
+				//if stat () successful, call execv with proper path and arguments, break out
 				sysCallReturn = stat(final_PathArgs[i], &sb);
 				if (sysCallReturn == 0)
 				{
@@ -95,16 +103,19 @@ int main(void)
 					break;
 				}
 			}
+			//if last system call unsuccessful, print error msg
 			if (sysCallReturn == -1)
 			write(1, strerror(errno), strlen(strerror(errno)));
 			return (0);
 		}
+		//if fork() errors, print error msg
 		else if (childPid == -1)
 		{
 			write(1, strerror(errno), strlen(strerror(errno)));
 
 			break;
 		}
+		//parent process executes the following:
 		else
 		{
 			if (wait(&status) == -1)
