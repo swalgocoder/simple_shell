@@ -7,9 +7,9 @@
 
 int check_input(char *inputString1)
 {
-	char *str2 = "Can't process more than 1000 characters";
+	char *str2 = "Can't process more than 1000 characters\n";
 	const char token[5] = "exit";
-	char *str3 = "exit entered...exiting";
+	char *str3 = "exit entered...exiting\n";
 	unsigned int inputLength;
 
 	inputLength = 1002;
