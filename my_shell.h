@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-#define INPUT_LENGTH 1002
+
 #define ARGUMENT_LENGTH 1001
 
 /* string functions */

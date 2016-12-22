@@ -56,9 +56,10 @@ unsigned int _strlen(const char *s)
  */
 char *_strcpy(char *strDest, const char *strSrc)
 {
+    char *temp;
     assert(strDest != NULL && strSrc != NULL);
-    char *temp = strDest;
 
+    temp = strDest;
     while ((*strDest++ = *strSrc++) != '\0');
 
     return (temp);
