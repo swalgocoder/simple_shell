@@ -18,7 +18,7 @@ int main(void)
 	char *str = "#cisfun$ ";
 	struct stat sb;
 	char *inputString1 = inputString;
-
+	char pathString[_strlen(path)];
 
 	while (1)
 	{
@@ -42,7 +42,7 @@ int main(void)
 				inputChar = my_strtok(NULL, whitespace);
 				argv[arg_Counter] = inputChar;
 			}
-			char pathString[_strlen(path)];
+
 
 			for (i = 0; i < _strlen(path); i++)
 				pathString[i] = path[i];
