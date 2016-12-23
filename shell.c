@@ -22,21 +22,24 @@ int main(void)
 	{
 		write(1, "#cisfun$ ", 9);
 		n = 32;
-		line = getline(&inputString, &n, stdin); /* working */
+		line = getline(&inputString, &n, stdin);
 		check_input(inputString);
+
+		/* do as much work as possible before the fork */
+		arg_Counter = path_Counter = 0;
+		inputChar = my_strtok(inputString, whitespace);
+		argv[arg_Counter] = inputChar;
+		while (inputChar != NULL) /* as is, includes trailing null character */
+		{
+			arg_Counter++;
+			inputChar = my_strtok(NULL, whitespace);
+			printf("Testing str: %s, and counter: %d\n", inputChar, arg_Counter);
+			argv[arg_Counter] = inputChar; /* works */
+		}
+
 		childPid = fork();
 		if (childPid == 0)
 		{
-			arg_Counter = 0;
-			path_Counter = 0;
-			inputChar = my_strtok(inputString, whitespace);
-			argv[arg_Counter] = inputChar;
-			while (inputChar != NULL)
-			{
-				arg_Counter++;
-				inputChar = my_strtok(NULL, whitespace);
-				argv[arg_Counter] = inputChar;
-			}
 			pathString = malloc(sizeof(*pathString) * _strlen(path));
 			if (pathString == NULL)
 				return (1);
