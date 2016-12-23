@@ -34,25 +34,39 @@ int main(void)
 		}
 		/* handle path */
 		pathString = c_strdup(path); /* duplicate PATH */
+/* pass pathString to _path function */
+
 		pathChar = my_strtok(pathString, ":"); /* split first token */
 		pathArgs = malloc(sizeof(*pathArgs) * _strlen(pathString));
 		if (pathArgs == NULL)
 			return (1);
-		pathArgs[path_Counter] = _strdup(pathChar); /* makes int from pointer w/o cast */
-		printf("pathArgs: %s\n", pathArgs);
-		printf("shouldbe: %s\n", pathChar);
-		while (pathChar != NULL)
+		i = 0;
+		while (pathChar[i])
+		{
+			pathArgs[path_Counter] = pathChar[i];
+			i++;
+			path_Counter++;
+		} /* works */
+		pathArgs[path_Counter] = '\0';
+		while (pathChar != NULL) /* split rest of tokens */
 		{
 			path_Counter++;
 			pathChar = my_strtok(NULL, ":");
+			i = 0;
+			while (pathChar[i])
+			{
+				pathArgs[path_Counter] = pathChar[i];
+				printf("pathArgs: %s\n", pathArgs);
+				printf("path_Counter: %u\n", path_Counter);
+				i++;
+				path_Counter++;
+			}
+			pathArgs[path_Counter] = '\0';
 		}
 
 		childPid = fork();
 		if (childPid == 0)
 		{
-
-
-
 			tempPath = malloc(sizeof(*tempPath) * _strlen(path));
 			if (tempPath == NULL)
 				return (1);
