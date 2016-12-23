@@ -30,6 +30,35 @@ char *_strdup(char *str)
 }
 
 /**
+ * c_strdup - copy a CONSTANT string
+ * @str: string
+ *
+ * Return: pointer to copy
+ */
+char *c_strdup(const char *str)
+{
+	char *s;
+	unsigned int i, n;
+
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i])
+		i++;
+	s = malloc((i * sizeof(char)) + 1);
+	if (s == NULL)
+		return (NULL);
+	n = 0;
+	while (n < i)
+	{
+		s[n] = str[n];
+		n++;
+	}
+	s[n] = '\0';
+	return (s);
+}
+
+/**
  * _strcmp - compare two strings
  * @s1: string one
  * @s2: const type string two

@@ -30,5 +30,6 @@ int check_input(char *inputString);
 /* daniel functions */
 char *readline(int fd);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char *c_strdup(const char *str);
 
 #endif /* ifndef MY_SHELL */

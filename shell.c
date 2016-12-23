@@ -15,44 +15,44 @@ int main(void)
 	char *pathArgs, *final_PathArgs, *pathString, *pathChar, *tempPath;
 	struct stat sb;
 
-	pathArgs = malloc(sizeof(*pathArgs) * _strlen(path));
-	if (pathArgs == NULL)
-		return (1);
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
 		n = 32;
 		line = getline(&inputString, &n, stdin);
-		check_input(inputString);
+		check_input(inputString); /* checks exit */
 
-		/* do as much work as possible before the fork */
 		arg_Counter = path_Counter = 0;
+		/* handle input */
 		inputChar = my_strtok(inputString, whitespace);
 		argv[arg_Counter] = inputChar;
-		while (inputChar != NULL) /* as is, includes trailing null character */
+		while (inputChar != NULL) /* includes trailing null character */
 		{
 			arg_Counter++;
 			inputChar = my_strtok(NULL, whitespace);
-			printf("Testing str: %s, and counter: %d\n", inputChar, arg_Counter);
-			argv[arg_Counter] = inputChar; /* works */
+			argv[arg_Counter] = inputChar;
+		}
+		/* handle path */
+		pathString = c_strdup(path); /* duplicate PATH */
+		pathChar = my_strtok(pathString, ":"); /* split first token */
+		pathArgs = malloc(sizeof(*pathArgs) * _strlen(pathString));
+		if (pathArgs == NULL)
+			return (1);
+		pathArgs[path_Counter] = _strdup(pathChar); /* makes int from pointer w/o cast */
+		printf("pathArgs: %s\n", pathArgs);
+		printf("shouldbe: %s\n", pathChar);
+		while (pathChar != NULL)
+		{
+			path_Counter++;
+			pathChar = my_strtok(NULL, ":");
 		}
 
 		childPid = fork();
 		if (childPid == 0)
 		{
-			pathString = malloc(sizeof(*pathString) * _strlen(path));
-			if (pathString == NULL)
-				return (1);
-			for (i = 0; i < _strlen(path); i++)
-				pathString[i] = path[i];
-			pathChar = my_strtok(pathString, ":");
-			pathArgs[path_Counter] = pathChar[i];
-			while (pathChar != NULL)
-			{
-				path_Counter++;
-				pathChar = my_strtok(NULL, ":");
-				pathArgs[path_Counter] = pathChar[i];
-			}
+
+
+
 			tempPath = malloc(sizeof(*tempPath) * _strlen(path));
 			if (tempPath == NULL)
 				return (1);
@@ -62,7 +62,7 @@ int main(void)
 			for (i = 0; i < path_Counter; i++)
 			{
 				_memset(tempPath, 0, sizeof(tempPath));
-				_strcpy(tempPath, pathArgs);
+				_strcpy(tempPath, pathChar); /* second argument was pathArgs */
 				_strcat(tempPath, "/");
 				_strcat(tempPath, argv[0]);
 				final_PathArgs = tempPath;
