@@ -1,41 +1,29 @@
 #include "my_shell.h"
 /**
  * main - linux commond line interpreter
- * Return: 0 if on error
+ *
+ * Return: 0 on success, 1 if on error
  */
-
 
 int main(void)
 {
 	int childPid, status, errno, arg_Counter, sysCallReturn;
 	unsigned int i, path_Counter;
-	const char whitespace[8] = " \t\v\n\f\n\r";
-	const char colon[2] = ":";
-	const char *path = _getenv("PATH");
-	char *pathString;
-	char *argv[ARGUMENT_LENGTH], *inputChar, *pathChar, *inputString;
-	char *pathArgs, *final_PathArgs, *tempPath;
-	char *str = "#cisfun$ ";
+	size_t n, line;
+	const char whitespace[8] = " \t\v\n\f\n\r", *path = _getenv("PATH");
+	char *inputString, *inputChar, *argv[ARGUMENT_LENGTH];
+	char *pathArgs, *final_PathArgs, *pathString, *pathChar, *tempPath;
 	struct stat sb;
-	char *inputString1;
 
-	inputString = malloc(sizeof(*inputString) * 1002);
-	if (inputString == NULL)
-		return (1);
-	inputString1 = inputString;
 	pathArgs = malloc(sizeof(*pathArgs) * _strlen(path));
 	if (pathArgs == NULL)
 		return (1);
-
 	while (1)
 	{
-		write(1, str, _strlen(str));
-		_memset(inputString, 0, sizeof(inputString));
-		_memset(argv, 0, sizeof(argv));
-		_memset(pathArgs, 0, sizeof(pathArgs));
-
-		check_input(inputString1);
-
+		write(1, "#cisfun$ ", 9);
+		n = 32;
+		line = getline(&inputString, &n, stdin); /* working */
+		check_input(inputString);
 		childPid = fork();
 		if (childPid == 0)
 		{
@@ -54,12 +42,12 @@ int main(void)
 				return (1);
 			for (i = 0; i < _strlen(path); i++)
 				pathString[i] = path[i];
-			pathChar = my_strtok(pathString, colon);
+			pathChar = my_strtok(pathString, ":");
 			pathArgs[path_Counter] = pathChar[i];
 			while (pathChar != NULL)
 			{
 				path_Counter++;
-				pathChar = my_strtok(NULL, colon);
+				pathChar = my_strtok(NULL, ":");
 				pathArgs[path_Counter] = pathChar[i];
 			}
 			tempPath = malloc(sizeof(*tempPath) * _strlen(path));

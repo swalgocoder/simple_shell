@@ -27,5 +27,8 @@ char *_memset(void *s, int b, unsigned int n);
 char *_getenv(const char *name);
 char *my_strtok(char *p, const char *tok);
 int check_input(char *inputString1);
+/* daniel functions */
+char *readline(int fd);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
-#endif
+#endif /* ifndef MY_SHELL */
