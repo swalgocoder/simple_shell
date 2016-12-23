@@ -20,9 +20,11 @@ int main(void)
 		write(1, "#cisfun$ ", 9);
 		n = 32;
 		line = getline(&inputString, &n, stdin);
+		if (line == -1)
+			return (1);
 		check_input(inputString); /* checks exit */
 
-		arg_Counter = path_Counter = 0;
+		arg_Counter = 0;
 		/* handle input */
 		inputChar = my_strtok(inputString, whitespace);
 		argv[arg_Counter] = inputChar;
@@ -34,35 +36,8 @@ int main(void)
 		}
 		/* handle path */
 		pathString = c_strdup(path); /* duplicate PATH */
-/* pass pathString to _path function */
 
-		pathChar = my_strtok(pathString, ":"); /* split first token */
-		pathArgs = malloc(sizeof(*pathArgs) * _strlen(pathString));
-		if (pathArgs == NULL)
-			return (1);
-		i = 0;
-		while (pathChar[i])
-		{
-			pathArgs[path_Counter] = pathChar[i];
-			i++;
-			path_Counter++;
-		} /* works */
-		pathArgs[path_Counter] = '\0';
-		while (pathChar != NULL) /* split rest of tokens */
-		{
-			path_Counter++;
-			pathChar = my_strtok(NULL, ":");
-			i = 0;
-			while (pathChar[i])
-			{
-				pathArgs[path_Counter] = pathChar[i];
-				printf("pathArgs: %s\n", pathArgs);
-				printf("path_Counter: %u\n", path_Counter);
-				i++;
-				path_Counter++;
-			}
-			pathArgs[path_Counter] = '\0';
-		}
+		/* call _path(pathString) function */
 
 		childPid = fork();
 		if (childPid == 0)

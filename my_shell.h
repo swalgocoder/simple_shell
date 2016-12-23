@@ -31,5 +31,6 @@ int check_input(char *inputString);
 char *readline(int fd);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *c_strdup(const char *str);
+int _path(char *path);
 
 #endif /* ifndef MY_SHELL */
