@@ -1,6 +1,6 @@
 #include "my_shell.h"
 
-int _path(char *path)
+char **_path(char *path)
 {
 	char *token, **args;
 	int i;
@@ -9,7 +9,7 @@ int _path(char *path)
 	i = 0;
 	args = malloc(sizeof(token) * _strlen(path));
 	if (args == NULL)
-		return (1);
+		return (NULL);
 	args[i] = token;
 	while (token != NULL) /* split rest of tokens */
 	{
@@ -17,5 +17,5 @@ int _path(char *path)
 		token = my_strtok(NULL, ":");
 		args[i] = token;
 	}
-	return (0); /* testing */
+	return (args); /* testing */
 }
